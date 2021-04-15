@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@ngneat/transloco';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    TranslocoModule
   ]
 })
 export class CommonComponentsModule {}
