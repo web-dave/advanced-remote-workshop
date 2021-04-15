@@ -1,14 +1,17 @@
 describe('As a user I want to check if a book can be created.', () => {
+  const randomISBN = Math.floor(1000000000000 + Math.random() * 900000);
   before(() => {
     cy.visit('/');
     cy.get('.mat-card').as('books');
+  });
+  after(() => {
+    cy.request('DELETE', 'http://localhost:4730/books/' + randomISBN);
   });
   it('should increase the number of books by 1', () => {
     let booksCount = 0;
     cy.get('@books').then(list => {
       booksCount = list.length;
       cy.get('[routerlink="books/new"]').click();
-      const randomISBN = Math.floor(1000000000000 + Math.random() * 900000);
       cy.url().should('include', 'books/new');
       cy.get('.mat-raised-button').should('be.disabled');
       cy.get('[formControlName="isbn"]').type(randomISBN.toString());
