@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { CommonComponentsModule } from './common-components/common-components.module';
 import { StoreModule } from '@ngrx/store';
 import { TranslocoRootModule } from './transloco/transloco-root.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +22,8 @@ import { TranslocoRootModule } from './transloco/transloco-root.module';
     CommonComponentsModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
-    TranslocoRootModule
+    TranslocoRootModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   bootstrap: [AppComponent]
 })

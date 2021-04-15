@@ -26,6 +26,7 @@
     "@angular/router": "11.2.1",
     "@ngneat/transloco": "^2.20.1",
     "@ngrx/store": "^11.1.0",
+    "@ngrx/store-devtools": "^11.1.0",
     "core-js": "3.6.5",
     "rxjs": "6.6.3",
     "tslib": "2.0.3",
