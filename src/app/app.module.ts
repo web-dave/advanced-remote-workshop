@@ -21,7 +21,7 @@ import { environment } from '../environments/environment';
     HammerModule,
     CommonComponentsModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({}),
     TranslocoRootModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
