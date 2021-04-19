@@ -18,6 +18,8 @@ import { BookCardComponent } from './book-card/book-card.component';
 import { StoreModule } from '@ngrx/store';
 import { bookReducer } from './store/book-collection.reducer';
 import { bookFeatureName } from './store/book-collection.actions';
+import { EffectsModule } from '@ngrx/effects';
+import { BookEffects } from './store/book.effects';
 
 @NgModule({
   imports: [
@@ -27,6 +29,7 @@ import { bookFeatureName } from './store/book-collection.actions';
     CommonModule,
     ReactiveFormsModule,
     StoreModule.forFeature(bookFeatureName, bookReducer),
+    EffectsModule.forFeature([BookEffects]),
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

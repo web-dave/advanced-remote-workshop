@@ -14,6 +14,9 @@ export const getBooksSelector = createSelector(
   data => data.books
 );
 
+export const getBookSelector = (isbn: string) =>
+  createSelector(getBooksSelector, books => books.find(b => b.isbn === isbn));
+
 export const bookReducer = createReducer(
   initialState,
   on(addAllBooks, (state, action) => {
