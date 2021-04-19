@@ -23,7 +23,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     StoreModule.forRoot({}),
     TranslocoRootModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    environment.production ? [] : StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   bootstrap: [AppComponent]
 })

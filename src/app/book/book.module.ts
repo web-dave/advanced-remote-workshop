@@ -15,6 +15,9 @@ import { BookNewComponent } from './book-new/book-new.component';
 import { BookRoutingModule } from './book-routing.module';
 import { BookComponent } from './book.component';
 import { BookCardComponent } from './book-card/book-card.component';
+import { StoreModule } from '@ngrx/store';
+import { bookReducer } from './store/book-collection.reducer';
+import { bookFeatureName } from './store/book-collection.actions';
 
 @NgModule({
   imports: [
@@ -23,7 +26,7 @@ import { BookCardComponent } from './book-card/book-card.component';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-
+    StoreModule.forFeature(bookFeatureName, bookReducer),
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
