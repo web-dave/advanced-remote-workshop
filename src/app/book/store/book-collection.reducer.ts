@@ -1,6 +1,6 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, createSelector, createFeatureSelector } from '@ngrx/store';
 import { Book } from '../models';
-import { addAllBooks } from './book-collection.actions';
+import { addAllBooks, bookFeatureName } from './book-collection.actions';
 
 export interface BookStoreState {
   books: Book[];
@@ -8,6 +8,11 @@ export interface BookStoreState {
 const initialState: BookStoreState = {
   books: []
 };
+
+export const getBooksSelector = createSelector(
+  createFeatureSelector<BookStoreState>(bookFeatureName),
+  data => data.books
+);
 
 export const bookReducer = createReducer(
   initialState,
