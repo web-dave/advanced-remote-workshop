@@ -21,7 +21,7 @@ export class BookDetailComponent {
     private bookService: BookApiService,
     private store: Store
   ) {
-    this.book$ = this.route.params.pipe(switchMap(params => this.store.select(getBookSelector(params.isbn))));
+    this.book$ = this.store.select(getBookSelector);
   }
 
   remove() {

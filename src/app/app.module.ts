@@ -11,7 +11,7 @@ import { TranslocoRootModule } from './transloco/transloco-root.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +23,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     HammerModule,
     CommonComponentsModule,
     AppRoutingModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ router: routerReducer }),
     TranslocoRootModule,
     environment.production ? [] : StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
