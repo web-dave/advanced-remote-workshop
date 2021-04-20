@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap, map, exhaustMap } from 'rxjs/operators';
 import { BookApiService } from '../book-api.service';
 import { addAllBooks, BookActionTypes } from './book-collection.actions';

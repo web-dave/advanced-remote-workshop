@@ -13,7 +13,7 @@ import { getBookSelector } from '../store/book-collection.reducer';
   templateUrl: 'book-detail.component.html'
 })
 export class BookDetailComponent {
-  public book$: Observable<Book | undefined>;
+  public book$: Observable<Book | null | undefined>;
 
   constructor(
     private router: Router,
