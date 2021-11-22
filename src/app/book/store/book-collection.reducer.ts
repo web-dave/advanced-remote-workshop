@@ -1,20 +1,13 @@
+import { createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
+import { Book } from '../models';
 import { loadBooksComplete, createBookStart, updateBookComplete, deleteBookComplete } from './book-collection.actions';
-import { BookCollectionSlice } from './book-collection.slice';
 
-const initialState: BookCollectionSlice = {
-  entities: []
-};
+const bookCollectionAdapter = createEntityAdapter<Book>({ selectId: itm => itm.isbn });
 export const bookCollectionReducers = createReducer(
-  initialState,
-  on(createBookStart, (slice, { book }) => ({ ...slice, entities: [...slice.entities, book] })),
-  on(loadBooksComplete, (slice, { books }) => ({ ...slice, entities: books })),
-  on(updateBookComplete, (slice, { book }) => ({
-    ...slice,
-    entities: slice.entities.map(b => (b.isbn === book.isbn ? book : b))
-  })),
-  on(deleteBookComplete, (slice, { isbn }) => ({
-    ...slice,
-    entities: slice.entities.filter(book => isbn !== book.isbn)
-  }))
+  bookCollectionAdapter.getInitialState(),
+  on(createBookStart, (slice, { book }) => bookCollectionAdapter.addOne(book, slice)),
+  on(loadBooksComplete, (slice, { books }) => bookCollectionAdapter.setAll(books, slice)),
+  on(updateBookComplete, (slice, { book }) => bookCollectionAdapter.updateOne({ id: book.isbn, changes: book }, slice)),
+  on(deleteBookComplete, (slice, { isbn }) => bookCollectionAdapter.removeOne(isbn, slice))
 );
