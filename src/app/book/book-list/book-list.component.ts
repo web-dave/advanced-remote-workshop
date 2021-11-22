@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Book } from '../models';
+import { ScanStoreService } from '../store/scan.store.service';
 import { StateService } from '../store/state.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { StateService } from '../store/state.service';
 export class BookListComponent {
   books$: Observable<readonly Book[]>;
 
-  constructor(private state: StateService) {
-    this.books$ = this.state.data$;
+  constructor(private store: ScanStoreService) {
+    this.books$ = this.store.select();
   }
 }
