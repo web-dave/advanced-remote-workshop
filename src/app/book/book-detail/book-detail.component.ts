@@ -22,10 +22,7 @@ export class BookDetailComponent {
     private bookService: BookApiService,
     private store: Store
   ) {
-    this.book$ = this.route.params.pipe(
-      switchMap(params => this.store.select(getBookByIsbnSelector(params.isbn))),
-      filter((book): book is Book => !!book)
-    );
+    this.book$ = this.store.select(getBookByIsbnSelector).pipe(filter((book): book is Book => !!book));
   }
 
   remove() {
