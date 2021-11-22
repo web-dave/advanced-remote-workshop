@@ -17,7 +17,7 @@ import { BookComponent } from './book.component';
 import { BookCardComponent } from './book-card/book-card.component';
 import { StoreModule } from '@ngrx/store';
 import { bookCollectionReducers } from './store/book-collection.reducer';
-import { bookFeature } from './store/book.feature';
+import { bookFeature, bookReducers } from './store/book.feature';
 
 @NgModule({
   imports: [
@@ -34,7 +34,7 @@ import { bookFeature } from './store/book.feature';
     MatInputModule,
     MatListModule,
 
-    StoreModule.forFeature(bookFeature, { bookCollection: bookCollectionReducers })
+    StoreModule.forFeature(bookFeature, bookReducers)
   ],
   declarations: [
     BookComponent,
