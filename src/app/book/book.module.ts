@@ -16,8 +16,9 @@ import { BookRoutingModule } from './book-routing.module';
 import { BookComponent } from './book.component';
 import { BookCardComponent } from './book-card/book-card.component';
 import { StoreModule } from '@ngrx/store';
-import { bookCollectionReducers } from './store/book-collection.reducer';
 import { bookFeature, bookReducers } from './store/book.feature';
+import { EffectsModule } from '@ngrx/effects';
+import { BookCollectionEffects } from './store/book.effects';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { bookFeature, bookReducers } from './store/book.feature';
     MatInputModule,
     MatListModule,
 
-    StoreModule.forFeature(bookFeature, bookReducers)
+    StoreModule.forFeature(bookFeature, bookReducers),
+    EffectsModule.forFeature([BookCollectionEffects])
   ],
   declarations: [
     BookComponent,
