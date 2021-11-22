@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { exhaustMap, filter, switchMap, tap } from 'rxjs/operators';
 import { BookApiService } from '../book-api.service';
 import { Book } from '../models';
-import { deleteBookComplete } from '../store/book-collection.actions';
-import { getBookByIsbnSelector } from '../store/book-collection.selectors';
 
 @Component({
   selector: 'ws-book-detail',
@@ -16,22 +12,12 @@ import { getBookByIsbnSelector } from '../store/book-collection.selectors';
 export class BookDetailComponent {
   public book$: Observable<Book>;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private bookService: BookApiService,
-    private store: Store
-  ) {
-    this.book$ = this.store.select(getBookByIsbnSelector).pipe(filter((book): book is Book => !!book));
+  constructor(private router: Router, private route: ActivatedRoute, private bookService: BookApiService) {
+    this.book$ = this.bookService.getByIsbn(this.route.snapshot.params.isbn);
   }
 
   remove() {
-    this.route.params
-      .pipe(
-        exhaustMap(params => this.bookService.delete(params.isbn)),
-        tap(() => this.store.dispatch(deleteBookComplete({ isbn: this.route.snapshot.params.isbn }))),
-        tap(() => this.router.navigateByUrl('/'))
-      )
-      .subscribe();
+    this.bookService.delete(this.route.snapshot.params.isbn);
+    this.router.navigateByUrl('/');
   }
 }

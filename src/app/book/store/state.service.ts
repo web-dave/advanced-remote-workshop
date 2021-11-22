@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Book } from './models';
+import { Book } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class StateService {

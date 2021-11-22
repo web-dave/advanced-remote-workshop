@@ -6,11 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonComponentsModule } from './common-components/common-components.module';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,11 +17,7 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
     BrowserAnimationsModule,
     HammerModule,
     CommonComponentsModule,
-    AppRoutingModule,
-    StoreModule.forRoot({ router: routerReducer }, {}),
-    StoreRouterConnectingModule.forRoot(),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([])
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

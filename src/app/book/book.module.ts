@@ -15,10 +15,6 @@ import { BookNewComponent } from './book-new/book-new.component';
 import { BookRoutingModule } from './book-routing.module';
 import { BookComponent } from './book.component';
 import { BookCardComponent } from './book-card/book-card.component';
-import { StoreModule } from '@ngrx/store';
-import { bookFeature, bookReducers } from './store/book.feature';
-import { EffectsModule } from '@ngrx/effects';
-import { BookCollectionEffects } from './store/book.effects';
 
 @NgModule({
   imports: [
@@ -33,10 +29,7 @@ import { BookCollectionEffects } from './store/book.effects';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatListModule,
-
-    StoreModule.forFeature(bookFeature, bookReducers),
-    EffectsModule.forFeature([BookCollectionEffects])
+    MatListModule
   ],
   declarations: [
     BookComponent,

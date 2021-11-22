@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Book } from '../models';
-import { bookCollectionSelector } from '../store/book-collection.selectors';
+import { StateService } from '../store/state.service';
 
 @Component({
   selector: 'ws-book-list',
@@ -12,7 +11,7 @@ import { bookCollectionSelector } from '../store/book-collection.selectors';
 export class BookListComponent {
   books$: Observable<readonly Book[]>;
 
-  constructor(private store: Store) {
-    this.books$ = this.store.select(bookCollectionSelector);
+  constructor(private state: StateService) {
+    this.books$ = this.state.data$;
   }
 }
