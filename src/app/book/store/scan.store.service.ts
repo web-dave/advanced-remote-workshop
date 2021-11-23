@@ -51,8 +51,7 @@ export class ScanStoreService {
         }
       }, this.data),
       map(selector),
-      share(),
-      tap(data => console.log(data))
+      share()
     );
   }
 
