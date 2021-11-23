@@ -57,10 +57,7 @@ export class ScanStoreService {
   }
 
   public select(selector: (state: Book[]) => any = books => books) {
-    return this.data$$.pipe(
-      map(selector),
-      tap(data => console.log(data))
-    );
+    return this.data$$.pipe(map(selector));
   }
 
   dispatch(action: BookActions) {
