@@ -25,6 +25,7 @@ describe('As a user I want to', () => {
     // save btn disabled
     cy.get('[type="submit"]').should('be.disabled');
     // Fill out Form
+    cy.screenshot('foo');
 
     cy.get('input[formControlName="isbn"]').type(randomISBN);
     cy.get('input[formControlName="isbn"]').clear();
