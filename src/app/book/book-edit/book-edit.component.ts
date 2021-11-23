@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { BookApiService } from '../book-api.service';
@@ -15,7 +14,7 @@ export class BookEditComponent implements OnInit, OnDestroy {
   sink = new Subscription();
   book: Book = new BookNa();
 
-  constructor(private route: ActivatedRoute, private bookService: BookApiService, private store: Store) {}
+  constructor(private route: ActivatedRoute, private bookService: BookApiService) {}
 
   ngOnInit() {
     this.sink.add(
