@@ -1,27 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { map, scan, share, tap } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { map, scan, tap } from 'rxjs/operators';
 import { Book } from '../models';
 
-export type BookActionTypes = '[Book] Add All' | '[Book] Add One' | '[Book] Update One' | '[Book] Delete One';
+export const ADDALL = '[Book] Add All';
+export const ADDONE = '[Book] Add One';
+export const UPDATEONE = '[Book] Update One';
+export const DELETEONE = '[Book] Delete One';
 
 export class AddAll {
-  readonly type = '[Book] Add All';
+  readonly type = ADDALL;
   constructor(public books: Book[]) {}
 }
 
 export class AddOne {
-  readonly type = '[Book] Add One';
+  readonly type = ADDONE;
   constructor(public book: Book) {}
 }
 
 export class UpdateOne {
-  readonly type = '[Book] Update One';
+  readonly type = UPDATEONE;
   constructor(public book: Book) {}
 }
 
 export class DeleteOne {
-  readonly type = '[Book] Delete One';
+  readonly type = DELETEONE;
   constructor(public isbn: string) {}
 }
 
@@ -29,29 +32,34 @@ export type BookActions = AddAll | AddOne | UpdateOne | DeleteOne;
 
 @Injectable({ providedIn: 'root' })
 export class ScanStoreService {
-  private actions$ = new Subject<BookActions>();
   // data
-  private data: Book[] = [];
+  private data$$ = new BehaviorSubject<Book[]>([]);
+  private actions$ = new Subject<BookActions>();
+  constructor() {
+    this.actions$
+      .pipe(
+        scan((state, action) => {
+          switch (action.type) {
+            case ADDALL:
+              return this.setAll(action.books, state);
+            case ADDONE:
+              return this.addOne(action.book, state);
+            case UPDATEONE:
+              return this.uppdateOne(action.book, state);
+            case DELETEONE:
+              return this.deleteOne(action.isbn, state);
+            default:
+              return state;
+          }
+        }, this.data$$.value)
+      )
+      .subscribe(books => this.data$$.next(books));
+  }
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
   public select(selector: (state: Book[]) => any = books => books) {
-    return this.actions$.pipe(
-      scan((state, action) => {
-        switch (action.type) {
-          case '[Book] Add All':
-            return this.setAll(action.books, state);
-          case '[Book] Add One':
-            return this.addOne(action.book, state);
-          case '[Book] Update One':
-            return this.uppdateOne(action.book, state);
-          case '[Book] Delete One':
-            return this.deleteOne(action.isbn, state);
-          default:
-            return state;
-        }
-      }, this.data),
+    return this.data$$.pipe(
       map(selector),
-      share()
+      tap(data => console.log(data))
     );
   }
 
@@ -61,25 +69,21 @@ export class ScanStoreService {
 
   //setAll
   private setAll(books: Book[], list: Book[]): Book[] {
-    list = books;
-    return list;
+    return books;
   }
 
   // Update
   private uppdateOne(update: Book, list: Book[]) {
-    list = list.map(book => (book.isbn === update.isbn ? update : book));
-    return list;
+    return list.map(book => (book.isbn === update.isbn ? update : book));
   }
 
   // add
   private addOne(book: Book, list: Book[]): Book[] {
-    list.push(book);
-    return list;
+    return [...list, book];
   }
 
   // delete
   private deleteOne(isbn: string, list: Book[]) {
-    list = list.filter(book => book.isbn !== isbn);
-    return list;
+    return list.filter(book => book.isbn !== isbn);
   }
 }

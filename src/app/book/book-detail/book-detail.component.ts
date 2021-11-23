@@ -13,6 +13,7 @@ export class BookDetailComponent {
   public book$: Observable<Book>;
 
   constructor(private router: Router, private route: ActivatedRoute, private bookService: BookApiService) {
+    console.log('==>', this.route.snapshot.params.isbn);
     this.book$ = this.bookService.getByIsbn(this.route.snapshot.params.isbn);
   }
 

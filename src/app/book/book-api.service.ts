@@ -9,7 +9,7 @@ import { AddAll, AddOne, DeleteOne, ScanStoreService, UpdateOne } from './store/
 export class BookApiService implements OnDestroy {
   kill = false;
   private endpoint = 'http://localhost:4730/books';
-  constructor(private http: HttpClient, private store: ScanStoreService) {}
+  constructor(private http: HttpClient, public store: ScanStoreService) {}
 
   getAll(): void {
     this.http
@@ -18,8 +18,9 @@ export class BookApiService implements OnDestroy {
       .subscribe(books => this.store.dispatch(new AddAll(books)));
   }
 
-  getByIsbn(isbn: string): Observable<Book> {
-    return this.store.select(books => books.find(book => book.isbn === isbn) as Book);
+  getByIsbn(isbn: string): Observable<any> {
+    console.log(isbn);
+    return this.store.select(books => books.find(book => book.isbn === isbn));
   }
 
   create(book: Book): void {
