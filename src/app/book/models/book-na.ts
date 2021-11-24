@@ -10,5 +10,5 @@ export class BookNa implements Book {
   title = this.#na;
   subtitle = this.#na;
   numPages = 0;
-  publisher = { name: this.#na, url: this.#na };
+  publisher = this.#na;
 }

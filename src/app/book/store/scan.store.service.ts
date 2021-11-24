@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { map, scan, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, scan } from 'rxjs/operators';
 import { Book } from '../models';
 
 export const ADDALL = '[Book] Add All';
@@ -57,10 +57,10 @@ export class ScanStoreService {
   }
 
   public select(selector: (state: Book[]) => any = books => books) {
-    return this.data$$.pipe(map(selector));
+    return this.data$$.pipe(map(selector), distinctUntilChanged());
   }
 
-  dispatch(action: BookActions) {
+  public dispatch(action: BookActions) {
     this.actions$.next(action);
   }
 
