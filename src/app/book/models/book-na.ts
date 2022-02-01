@@ -12,3 +12,18 @@ export class BookNa implements Book {
   numPages = 0;
   publisher = { name: this.#na, url: this.#na };
 }
+
+export const bookNa: () => Book = () => {
+  const na = 'n/a';
+
+  return {
+    abstract: na,
+    author: na,
+    cover: na,
+    isbn: na,
+    title: na,
+    subtitle: na,
+    numPages: 0,
+    publisher: { name: na, url: na }
+  };
+};
