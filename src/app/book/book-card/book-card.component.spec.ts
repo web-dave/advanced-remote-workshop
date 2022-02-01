@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BookNa } from '../models';
 
 import { BookCardComponent } from './book-card.component';
 
@@ -20,5 +21,11 @@ describe('BookCardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('When no content is passed', () => {
+    it('defaults to "n/a"', () => {
+      expect(component.content).toEqual(new BookNa());
+    });
   });
 });
