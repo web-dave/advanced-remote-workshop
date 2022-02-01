@@ -38,8 +38,9 @@ describe('BookListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('spy has been called and book is available', () => {
+  it('spy has been called and book is available', done => {
     expect(bookApiMock.getAll).toHaveBeenCalled();
     expect(view.querySelector('ws-book-card')).toBeTruthy();
+    done();
   });
 });
