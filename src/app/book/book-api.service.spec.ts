@@ -1,6 +1,3 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
 import { createHttpFactory, SpectatorHttp, HttpMethod } from '@ngneat/spectator';
 import { BookApiService } from './book-api.service';
 import { BookNa } from './models';
