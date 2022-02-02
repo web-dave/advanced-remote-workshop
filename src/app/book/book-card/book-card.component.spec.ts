@@ -1,44 +1,29 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BookNa } from '../models';
+import { Book, BookNa } from '../models';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { BookCardComponent } from './book-card.component';
 
 describe('BookCardComponent', () => {
-  let component: BookCardComponent;
-  let fixture: ComponentFixture<BookCardComponent>;
-  let view: HTMLElement;
+  let spectator: Spectator<BookCardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [BookCardComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [RouterTestingModule]
-    }).compileComponents();
-  });
+  const createComponent = createComponentFactory(BookCardComponent);
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BookCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    view = fixture.debugElement.nativeElement; //document.querySelector('ws-book-card')
-  });
+  beforeEach(() => (spectator = createComponent()));
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(spectator).toBeTruthy();
   });
 
   describe('When no content is passed', () => {
     it('defaults to "n/a"', () => {
-      expect(component.content).toEqual(new BookNa());
+      expect(spectator.query('mat-card-title')).toContainText('n/a');
     });
   });
   describe('display title', () => {
     it('in template', () => {
-      component.content.title = 'How to make cake';
-      fixture.detectChanges();
-      expect(view.querySelector('mat-card-title')?.innerHTML).toBe('How to make cake');
+      const book: Book = { ...new BookNa(), title: 'How to make cake' };
+      spectator.setInput({ content: book });
+      expect(spectator.query('mat-card-title')).toContainText('How to make cake');
     });
   });
 });
